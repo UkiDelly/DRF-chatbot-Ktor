@@ -13,7 +13,6 @@ fun Application.module() {
 	val password = environment.config.property("database.password").getString()
 	DatabaseFactory.init(url, user, password)
 	
-	configureSecurity()
 	configureMonitoring()
 	configureSerialization()
 	configureSockets()
