@@ -31,16 +31,17 @@ dependencies {
 	implementation("io.ktor:ktor-server-host-common-jvm")
 	implementation("io.ktor:ktor-server-netty-jvm")
 	
-	//
+	// Routes
 	implementation("io.ktor:ktor-server-resources")
 	implementation("io.ktor:ktor-server-status-pages-jvm")
 	implementation("io.ktor:ktor-server-swagger-jvm")
 	implementation("io.ktor:ktor-server-websockets-jvm")
 	
-	//
+	// Logging
 	implementation("io.ktor:ktor-server-call-logging-jvm")
+	implementation("ch.qos.logback:logback-classic:$logback_version")
 	
-	//
+	// Serialization
 	implementation("io.ktor:ktor-server-content-negotiation-jvm")
 	implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
 	
@@ -49,9 +50,6 @@ dependencies {
 	implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
 	implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
 	implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
-	
-	// Logging
-	implementation("ch.qos.logback:logback-classic:$logback_version")
 	
 	// Test
 	testImplementation("io.ktor:ktor-server-tests-jvm")
