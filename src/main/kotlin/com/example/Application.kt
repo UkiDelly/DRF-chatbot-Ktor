@@ -14,7 +14,6 @@ fun Application.module() {
 	DatabaseFactory.init(url, user, password)
 	
 	configureSecurity()
-	configureHTTP()
 	configureMonitoring()
 	configureSerialization()
 	configureSockets()

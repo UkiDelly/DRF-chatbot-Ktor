@@ -2,7 +2,7 @@ ktor:
   development: true
   deployment:
     port: 8080
-    watch: [classes, resources]
+    watch: [ classes, resources ]
   application:
     modules:
       - com.example.ApplicationKt.module
@@ -13,9 +13,10 @@ jwt:
   audience: "jwt-audience"
   realm: "ktor sample app"
   issuer: "ktor sample app"
+  secret: "secret"
 
 
 database:
-  url : $DB_URL
-  user : $DB_USER
-  password : $DB_PASSWORD
+  url: $DB_URL
+  user: $DB_USER
+  password: $DB_PASSWORD
