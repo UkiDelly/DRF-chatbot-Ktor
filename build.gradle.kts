@@ -15,7 +15,6 @@ version = "0.0.1"
 
 application {
 	mainClass.set("io.ktor.server.netty.EngineMain")
-	
 	val isDevelopment: Boolean = project.ext.has("development")
 	applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
@@ -30,6 +29,7 @@ dependencies {
 	implementation("io.ktor:ktor-server-auth-jwt-jvm")
 	implementation("io.ktor:ktor-server-host-common-jvm")
 	implementation("io.ktor:ktor-server-netty-jvm")
+	implementation("io.ktor:ktor-server-config-yaml:$ktor_version")
 	
 	// Routes
 	implementation("io.ktor:ktor-server-resources")
@@ -50,6 +50,8 @@ dependencies {
 	implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
 	implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
 	implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
+	implementation("org.mariadb.jdbc:mariadb-java-client:3.2.0")
+	
 	
 	// Test
 	testImplementation("io.ktor:ktor-server-tests-jvm")
