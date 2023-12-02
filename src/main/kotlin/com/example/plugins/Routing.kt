@@ -1,9 +1,9 @@
 package com.example.plugins
 
+import com.example.routing.account.accountRouting
 import io.ktor.resources.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.swagger.*
-import io.ktor.server.resources.*
 import io.ktor.server.resources.Resources
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -18,10 +18,10 @@ fun Application.configureRouting() {
 		get("/") {
 			call.respondText("Hello World!")
 		}
-		get<Articles> { article ->
-			// Get all articles ...
-			call.respond("List of articles sorted starting from ${article.sort}")
-		}
+		
+		// 계정
+		accountRouting()
+		
 	}
 }
 
