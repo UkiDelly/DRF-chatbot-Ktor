@@ -11,17 +11,14 @@ fun Application.configureRequestValidation() {
   install(RequestValidation) {
     validate<RegisterRequestDto> {
       
-      if (! it.isValidEmail()) {
-        ValidationResult.Invalid("이메일 형식이 맞지 않습니다.")
-      }
-      ValidationResult.Valid
+      if (! it.isValidEmail()) ValidationResult.Invalid("이메일 형식이 맞지 않습니다.")
+      else ValidationResult.Valid
+      
     }
     
     validate<LoginRequestDto> {
-      if (! it.isValidEmail()) {
-        ValidationResult.Invalid("이메일 형식이 맞지 않습니다.")
-      }
-      ValidationResult.Valid
+      if (! it.isValidEmail()) ValidationResult.Invalid("이메일 형식이 맞지 않습니다.")
+      else ValidationResult.Valid
     }
   }
   
