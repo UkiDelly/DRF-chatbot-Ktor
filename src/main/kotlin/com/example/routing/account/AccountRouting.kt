@@ -1,7 +1,9 @@
 package com.example.routing.account
 
+import com.example.common.SocialType
 import com.example.common.TokenType
 import com.example.common.generateToken
+import com.example.models.reqeust.LoginRequestDto
 import com.example.models.reqeust.RegisterRequestDto
 import com.example.models.response.UserInfoWithTokenResponseDto
 import com.example.plugins.getUserId
@@ -29,8 +31,15 @@ fun Route.accountRouting() {
   }
   
   // 로그인
-  post<AccountRoutes.Login> { }
-  
+  post<AccountRoutes.Login> {
+    val body = call.receive<LoginRequestDto>()
+    val user = when (body.socialType) {
+      SocialType.email -> accountService.findEmailUser(body.email, body.password !!)
+      SocialType.google -> accountService.findSocialUser(body.snsId !!)
+    }
+    val token = application.generateToken(user.id)
+    call.respond(HttpStatusCode.OK, UserInfoWithTokenResponseDto(user, token))
+  }
   
   
   withAuth(TokenType.refresh) {
