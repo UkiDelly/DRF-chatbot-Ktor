@@ -2,9 +2,12 @@ package com.example.database.entity
 
 import com.example.database.table.UserTable
 import org.jetbrains.exposed.dao.IntEntity
+import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
 class UserEntity(id: EntityID<Int>) : IntEntity(id) {
+	
+	companion object : IntEntityClass<UserEntity>(UserTable)
 	
 	var nickname by UserTable.nickname
 	var email by UserTable.email

@@ -26,9 +26,10 @@ object DatabaseFactory {
 		}
 		
 		
-		suspend fun <T> query(block: () -> T): T = newSuspendedTransaction(Dispatchers.IO, database) {
-			addLogger(StdOutSqlLogger)
-			block()
-		}
+	}
+	
+	suspend fun <T> query(block: () -> T): T = newSuspendedTransaction(Dispatchers.IO, database) {
+		addLogger(StdOutSqlLogger)
+		block()
 	}
 }

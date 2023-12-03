@@ -9,7 +9,7 @@ object UserTable : IntIdTable("users") {
 	val nickname = varchar("nickname", length = 100)
 	val email = varchar("email", length = 255)
 	val socialType = enumerationByName<SocialType>("social_type", 10)
-	val snsId = varchar("sns_id", length = 255)
+	val snsId = varchar("sns_id", length = 255).nullable()
 	val password = text("password").nullable()
 	val chatCount = integer("chat_count").default(0)
 	val isActive = bool("is_active").default(true)
