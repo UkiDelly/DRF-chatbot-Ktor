@@ -39,6 +39,7 @@ dependencies {
   implementation("io.ktor:ktor-server-status-pages-jvm")
   implementation("io.ktor:ktor-server-swagger-jvm")
   implementation("io.ktor:ktor-server-websockets-jvm")
+  implementation("io.ktor:ktor-server-request-validation:$ktor_version")
   
   // Logging
   implementation("io.ktor:ktor-server-call-logging-jvm")
