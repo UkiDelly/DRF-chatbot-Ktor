@@ -7,7 +7,7 @@ import org.koin.ktor.plugin.Koin
 
 fun Application.configureKoin() {
   install(Koin) {
-    val service = module { single { AccountService() } }
-    modules(service)
+    val services = module { AccountService() }
+    modules(services)
   }
 }
