@@ -62,6 +62,9 @@ dependencies {
   testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.6")
   runtimeOnly("io.insert-koin:koin-annotations:1.3.0")
   
+  // Security
+  implementation("org.mindrot:jbcrypt:0.4")
+  
   
   // Test
   testImplementation("io.ktor:ktor-server-tests-jvm")
