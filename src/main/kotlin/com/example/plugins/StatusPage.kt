@@ -19,9 +19,5 @@ fun Application.configureStatusPage() {
     exception<ConflictException> { call, cause ->
       call.respond(HttpStatusCode.Conflict, cause.message !!)
     }
-    
-    exception<Throwable> { call, cause ->
-      call.respondText(text = "500: $cause", status = HttpStatusCode.InternalServerError)
-    }
   }
 }

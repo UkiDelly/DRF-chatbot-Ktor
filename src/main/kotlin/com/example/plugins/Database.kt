@@ -10,26 +10,26 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 
 object DatabaseFactory {
-	
-	private lateinit var database: Database
-	fun init(url: String, user: String, password: String) {
-		database = Database.connect(
-			url,
-			user = user,
-			password = password,
-			driver = "org.mariadb.jdbc.Driver"
-		)
-		
-		transaction {
-			addLogger(StdOutSqlLogger)
-			SchemaUtils.createMissingTablesAndColumns()
-		}
-		
-		
-	}
-	
-	suspend fun <T> query(block: () -> T): T = newSuspendedTransaction(Dispatchers.IO, database) {
-		addLogger(StdOutSqlLogger)
-		block()
-	}
+  
+  private lateinit var database: Database
+  fun init(url: String, user: String, password: String) {
+    database = Database.connect(
+      url,
+      user = user,
+      password = password,
+      driver = "org.mariadb.jdbc.Driver"
+    )
+    
+    transaction {
+      addLogger(StdOutSqlLogger)
+      SchemaUtils.createMissingTablesAndColumns()
+    }
+    
+    
+  }
+  
+  suspend fun <T> query(block: suspend () -> T): T = newSuspendedTransaction(Dispatchers.IO, database) {
+    addLogger(StdOutSqlLogger)
+    block()
+  }
 }
