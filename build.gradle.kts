@@ -52,6 +52,11 @@ dependencies {
 	implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
 	implementation("org.mariadb.jdbc:mariadb-java-client:3.2.0")
 	
+	// Koin
+	implementation("io.insert-koin:koin-ktor:3.5.0")
+	implementation("io.insert-koin:koin-ksp-compiler:1.3.0")
+	runtimeOnly("io.insert-koin:koin-annotations:1.3.0")
+	
 	
 	// Test
 	testImplementation("io.ktor:ktor-server-tests-jvm")
