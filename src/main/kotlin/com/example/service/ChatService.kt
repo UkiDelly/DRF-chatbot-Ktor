@@ -17,7 +17,6 @@ import org.koin.core.annotation.Module
 @Module
 class ChatService {
   
-  
   suspend fun listChatRoom(userId: Int): List<ChatRoom> {
     val chatRooms = query { ChatRoomEntity.find { ChatRoomTable.userId eq userId }.toList() }
     return chatRooms.map { ChatRoom(it) }
