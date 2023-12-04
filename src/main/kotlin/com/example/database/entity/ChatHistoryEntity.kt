@@ -8,7 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 class ChatHistoryEntity(id: EntityID<Int>) : IntEntity(id) {
   companion object : IntEntityClass<ChatHistoryEntity>(ChatHistoryTable)
   
-  var chatRoom by ChatRoomEntity referencedOn ChatHistoryTable.chatRoomId
+  var chatRoom by ChatRoomDetailEntity referencedOn ChatHistoryTable.chatRoomId
   var message by ChatHistoryTable.message
   var role by ChatHistoryTable.role
   var createdAt by ChatHistoryTable.createdAt

@@ -10,7 +10,7 @@ class SystemPromptEntity(id: EntityID<Int>) : IntEntity(id) {
   companion object : IntEntityClass<SystemPromptEntity>(SystemPromptTable)
   
   var prompt by SystemPromptTable.prompt
-  var chatRoom by ChatRoomEntity referencedOn SystemPromptTable.chatRoomId
+  var chatRoom by ChatRoomDetailEntity referencedOn SystemPromptTable.chatRoomId
   var createdAt by SystemPromptTable.createdAt
   
 }

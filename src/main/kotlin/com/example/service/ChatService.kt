@@ -1,14 +1,13 @@
 package com.example.service
 
 import com.example.common.Role
-import com.example.database.entity.ChatHistoryEntity
-import com.example.database.entity.ChatRoomEntity
-import com.example.database.entity.SystemPromptEntity
-import com.example.database.entity.UserEntity
+import com.example.database.entity.*
 import com.example.database.table.ChatRoomTable
 import com.example.database.table.SystemPromptTable
 import com.example.models.ChatHistory
 import com.example.models.ChatRoom
+import com.example.models.ChatRoomDetail
+import com.example.models.reqeust.ChatRoomCreateReqeustDto
 import com.example.plugins.DatabaseFactory.query
 import io.ktor.server.plugins.*
 import org.koin.core.annotation.Module
@@ -25,15 +24,29 @@ class ChatService {
     
   }
   
-  suspend fun createChatRoom(userId: Int, name: String): ChatRoom {
+  suspend fun createChatRoom(userId: Int, reqeust: ChatRoomCreateReqeustDto): ChatRoomDetail {
     val chatRoom = query {
       val user = UserEntity.findById(userId) ?: throw NotFoundException("유저가 존재하지 않습니다.")
-      ChatRoomEntity.new {
-        this.name = name
+      ChatRoomDetailEntity.new {
+        name = reqeust.name
         this.user = user
       }
     }
-    return ChatRoom(chatRoom)
+    
+    return query {
+      SystemPromptEntity.new {
+        this.chatRoom = chatRoom
+        this.prompt = reqeust.systemPrompt
+      }
+      ChatRoomDetail(chatRoom)
+    }
+  }
+  
+  suspend fun getChatRoom(chatRoomId: Int): ChatRoomDetail {
+    return query {
+      val chatRoom = findChatRoom(chatRoomId)
+      ChatRoomDetail(chatRoom)
+    }
   }
   
   
@@ -97,9 +110,7 @@ class ChatService {
   }
   
   
-  private fun findChatRoom(chatRoomId: Int): ChatRoomEntity {
-    return ChatRoomEntity.findById(chatRoomId) ?: throw NotFoundException("채팅방이 존재하지 않습니다.")
+  private fun findChatRoom(chatRoomId: Int): ChatRoomDetailEntity {
+    return ChatRoomDetailEntity.findById(chatRoomId) ?: throw NotFoundException("채팅방이 존재하지 않습니다.")
   }
-  
-  
 }
