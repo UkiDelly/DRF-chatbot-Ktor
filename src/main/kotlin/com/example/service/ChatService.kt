@@ -4,4 +4,4 @@ import org.koin.core.annotation.Module
 
 
 @Module
-class ChatService 
+class ChatService

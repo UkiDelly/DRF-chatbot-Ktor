@@ -1,5 +1,9 @@
 package com.example.plugins
 
+import com.example.database.table.ChatHistoryTable
+import com.example.database.table.ChatRoomTable
+import com.example.database.table.SystemPromptTable
+import com.example.database.table.UserTable
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -18,7 +22,12 @@ object DatabaseFactory {
       driver = "org.mariadb.jdbc.Driver"
     )
     transaction {
-      SchemaUtils.createMissingTablesAndColumns()
+      SchemaUtils.createMissingTablesAndColumns(
+        UserTable,
+        ChatRoomTable,
+        ChatHistoryTable,
+        SystemPromptTable
+      )
     }
   }
   

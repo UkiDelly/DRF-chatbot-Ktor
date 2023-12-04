@@ -5,6 +5,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class SocialType {
-	email,
-	google
+  email,
+  google
+}
+
+
+@Serializable
+enum class Role {
+  user,
+  assistant
 }
