@@ -63,7 +63,7 @@ dependencies {
   runtimeOnly("io.insert-koin:koin-annotations:1.3.0")
   
   // Security
-  implementation("org.mindrot:jbcrypt:0.4")
+  implementation("at.favre.lib:bcrypt:0.10.2")
   
   
   // Test
