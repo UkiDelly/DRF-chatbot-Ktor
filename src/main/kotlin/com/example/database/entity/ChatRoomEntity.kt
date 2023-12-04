@@ -11,6 +11,7 @@ class ChatRoomEntity(id: EntityID<Int>) : IntEntity(id) {
   var name by ChatRoomTable.name
   var user by UserEntity referencedOn ChatRoomTable.userId
   val history by ChatHistoryEntity referrersOn ChatRoomTable.id
+  val systemPrompt by SystemPromptEntity referrersOn ChatRoomTable.id
   val createdAt by ChatRoomTable.createdAt
   var updatedAt by ChatRoomTable.updatedAt
 }
