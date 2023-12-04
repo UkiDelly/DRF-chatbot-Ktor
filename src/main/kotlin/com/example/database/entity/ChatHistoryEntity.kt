@@ -11,5 +11,7 @@ class ChatHistoryEntity(id: EntityID<Int>) : IntEntity(id) {
   var chatRoom by ChatRoomEntity referencedOn ChatHistoryTable.chatRoomId
   var message by ChatHistoryTable.message
   var role by ChatHistoryTable.role
+  var createdAt by ChatHistoryTable.createdAt
+  var updatedAt by ChatHistoryTable.updatedAt
   
 }
