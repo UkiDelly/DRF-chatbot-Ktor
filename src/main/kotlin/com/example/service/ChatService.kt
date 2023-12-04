@@ -18,8 +18,11 @@ import org.koin.core.annotation.Module
 class ChatService {
   
   suspend fun listChatRoom(userId: Int): List<ChatRoom> {
-    val chatRooms = query { ChatRoomEntity.find { ChatRoomTable.userId eq userId }.toList() }
-    return chatRooms.map { ChatRoom(it) }
+    return query {
+      val chatRoomsEntity = ChatRoomEntity.find { ChatRoomTable.userId eq userId }.toList()
+      chatRoomsEntity.map { ChatRoom(it) }
+    }
+    
   }
   
   suspend fun createChatRoom(userId: Int, name: String): ChatRoom {

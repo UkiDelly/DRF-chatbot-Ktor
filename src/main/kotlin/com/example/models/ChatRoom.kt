@@ -10,8 +10,8 @@ import java.time.LocalDateTime
 data class ChatRoom(
   val id: Int,
   val name: String,
-  val history: List<ChatHistory>,
   val prompts: List<SystemPrompt>,
+  val history: List<ChatHistory>,
   @Serializable(with = LocalDateTimeSerializer::class)
   val createdAt: LocalDateTime,
   @Serializable(with = LocalDateTimeSerializer::class)
