@@ -46,12 +46,16 @@ fun Route.accountRouting() {
     // 자동 로그인
     post<AccountRoutes.AutoLogin> {
       val userId = call.getUserId()
+      val user = accountService.findUserById(userId)
+      val token = application.generateToken(user.id)
+      call.respond(HttpStatusCode.OK, UserInfoWithTokenResponseDto(user, token))
     }
     
     // 토큰 재발급
     post<AccountRoutes.RefreshToken> {
       val userId = call.getUserId()
+      val accessToken = application.generateToken(userId).accessToken
+      call.respond(HttpStatusCode.OK, mapOf("access" to accessToken))
     }
   }
-  
 }
