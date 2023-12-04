@@ -40,10 +40,7 @@ class AccountService {
     val userEntity = query {
       UserEntity.find { (UserTable.snsId eq snsId) and (UserTable.socialType eq SocialType.google) }.firstOrNull()
         ?.also { it.lastLogin = LocalDateTime.now() }
-      
     } ?: throw NotFoundException("유저가 존재하지 않습니다.")
-    
-    
     return User(userEntity)
   }
   
