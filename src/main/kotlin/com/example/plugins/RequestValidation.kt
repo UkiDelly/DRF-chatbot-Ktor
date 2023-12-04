@@ -2,7 +2,6 @@ package com.example.plugins
 
 import com.example.models.reqeust.LoginRequestDto
 import com.example.models.reqeust.RegisterRequestDto
-import com.example.models.reqeust.isValidEmail
 import io.ktor.server.application.*
 import io.ktor.server.plugins.requestvalidation.*
 

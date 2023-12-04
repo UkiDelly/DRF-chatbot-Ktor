@@ -2,6 +2,7 @@ package com.example.service
 
 import com.example.common.Role
 import com.example.database.entity.*
+import com.example.database.table.ChatHistoryTable
 import com.example.database.table.ChatRoomTable
 import com.example.database.table.SystemPromptTable
 import com.example.models.ChatHistory
@@ -75,6 +76,13 @@ class ChatService {
       }
     }
     return ChatHistory(chatHistory)
+  }
+  
+  suspend fun listChatHitory(chatRoomId: Int): List<ChatHistory> {
+    return query {
+      val chatHistories = ChatHistoryEntity.find { ChatHistoryTable.chatRoomId eq chatRoomId }.toList()
+      chatHistories.map { ChatHistory(it) }
+    }
   }
   
   suspend fun addSystemPrompt(chatRoomId: Int, prompt: String) {

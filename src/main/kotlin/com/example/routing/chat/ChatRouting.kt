@@ -1,6 +1,7 @@
 package com.example.routing.chat
 
 import com.example.models.reqeust.ChatRoomCreateReqeustDto
+import com.example.models.reqeust.UpdateChatRoomReqeustDto
 import com.example.models.response.SuccessResponse
 import com.example.plugins.getUserId
 import com.example.service.ChatService
@@ -32,21 +33,24 @@ fun Route.chatRouting() {
   
   
   get<ChatRoutes.Id> { ch ->
-    val userId = call.getUserId()
     val chatRoom = chatService.getChatRoom(ch.id)
     call.respond(HttpStatusCode.OK, SuccessResponse(chatRoom))
   }
   
-  put<ChatRoutes.Id> {
-    val userId = call.getUserId()
+  put<ChatRoutes.Id> { ch ->
+    val body = call.receive<UpdateChatRoomReqeustDto>()
+    chatService.updateChatRoom(ch.id, body.name)
+    call.respond(HttpStatusCode.Accepted)
   }
   
-  delete<ChatRoutes.Id> { chatRoom ->
-    val userId = call.getUserId()
+  delete<ChatRoutes.Id> { ch ->
+    chatService.deleteChatRoom(ch.id)
+    call.respond(HttpStatusCode.Accepted)
   }
   
-  get<ChatRoutes.Id.History> { chatRoom ->
-    val userId = call.getUserId()
+  get<ChatRoutes.Id.History> { ch ->
+    val chatHistory = chatService.listChatHitory(ch.chatRoom.id)
+    call.respond(HttpStatusCode.OK, SuccessResponse(chatHistory))
   }
   
   

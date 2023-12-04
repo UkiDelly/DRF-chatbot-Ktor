@@ -16,6 +16,6 @@ class ChatRoutes {
     
     @Serializable
     @Resource("history")
-    class History(val id: Id)
+    class History(val chatRoom: Id)
   }
 }
