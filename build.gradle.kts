@@ -33,6 +33,12 @@ dependencies {
   implementation("io.ktor:ktor-server-netty-jvm")
   implementation("io.ktor:ktor-server-config-yaml:$ktor_version")
   
+  // Ktor Client
+  implementation("io.ktor:ktor-client-core-jvm")
+  implementation("io.ktor:ktor-client-okhttp-jvm")
+  implementation("io.ktor:ktor-client-logging-jvm")
+  implementation("io.ktor:ktor-client-content-negotiation-jvm")
+  
   
   // Routes
   implementation("io.ktor:ktor-server-resources")
@@ -59,6 +65,7 @@ dependencies {
   // Koin
   implementation("io.insert-koin:koin-ktor:3.5.0")
   implementation("io.insert-koin:koin-ksp-compiler:1.3.0")
+  implementation("io.ktor:ktor-client-okhttp-jvm:2.3.6")
   testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.6")
   runtimeOnly("io.insert-koin:koin-annotations:1.3.0")
   

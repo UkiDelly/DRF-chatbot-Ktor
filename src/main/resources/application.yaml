@@ -20,3 +20,7 @@ database:
   url: $DB_URL
   user: $DB_USER
   password: $DB_PASSWORD
+
+
+openai:
+  token: $OPENAI_TOKEN

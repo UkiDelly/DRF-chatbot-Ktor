@@ -1,5 +1,6 @@
 package com.example.plugins
 
+import com.example.openAi.OpenAiClient
 import com.example.service.ChatService
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
@@ -21,6 +22,10 @@ fun Application.configureSockets() {
     webSocket("/chat/{chatRoomId}") {
       val chatRoomId = call.parameters["chatRoomId"]?.toInt()
       
+      
+      val openAiToken = application.environment.config.property("openai.token").getString()
+      val openAiClient = OpenAiClient(openAiToken)
+      
       if (chatRoomId == null) {
         close(CloseReason(CloseReason.Codes.NORMAL, "ChatRoomId is null."))
         return@webSocket
@@ -29,8 +34,10 @@ fun Application.configureSockets() {
       for (frame in incoming) {
         if (frame is Frame.Text) {
           val text = frame.readText()
-          val receive = chatService.socket(chatRoomId, text)
-          outgoing.send(Frame.Text(receive))
+          // chatService.socket(chatRoomId, text)
+          val messages = chatService.getAllMessages(chatRoomId)
+          val res = openAiClient.sendChat(messages)
+          outgoing.send(Frame.Text("하이"))
         }
       }
     }

@@ -9,7 +9,12 @@ import com.example.database.table.SystemPromptTable
 import com.example.models.ChatHistory
 import com.example.models.ChatRoom
 import com.example.models.ChatRoomDetail
+import com.example.models.SystemPrompt
 import com.example.models.reqeust.ChatRoomCreateReqeustDto
+import com.example.openAi.AssistantModel
+import com.example.openAi.BaseModel
+import com.example.openAi.SystemModel
+import com.example.openAi.UserModel
 import com.example.plugins.DatabaseFactory.query
 import io.ktor.server.plugins.*
 import org.koin.core.annotation.Module
@@ -118,19 +123,28 @@ class ChatService {
     }
   }
   
+  suspend fun getAllMessages(chatRoomId: Int): List<BaseModel> {
+    return query {
+      val systemPrompt =
+        SystemPromptEntity.find { SystemPromptTable.chatRoomId eq chatRoomId }.map { SystemPrompt(it) }
+      
+      val chatRoom = findChatRoom(chatRoomId)
+      val chatHistories = ChatHistoryEntity.find { ChatHistoryTable.chatRoomId eq chatRoomId }.toList()
+      val messages = systemPrompt.map { SystemModel(it.prompt) } + chatHistories.map {
+        if (it.role == Role.user) UserModel(it.message)
+        else AssistantModel(it.message)
+      }
+      messages
+    }
+  }
   
-  suspend fun socket(chatRoomId: Int, message: String): String {
+  
+  suspend fun socket(chatRoomId: Int, message: String) {
     return query {
       val user = ChatRoomEntity.findById(chatRoomId)?.user ?: throw NotFoundException("채팅방이 존재하지 않습니다.")
       if (user.chatCount >= 5) throw ReachedLimitException()
       user.chatCount ++
-      
       addChatHistory(chatRoomId, message, Role.user)
-      
-      // TODO: chatGPT 연결
-      
-      
-      "저장함"
     }
   }
   
