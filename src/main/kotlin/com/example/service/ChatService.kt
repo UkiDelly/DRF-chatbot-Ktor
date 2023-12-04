@@ -1,5 +1,6 @@
 package com.example.service
 
+import com.example.common.ReachedLimitException
 import com.example.common.Role
 import com.example.database.entity.*
 import com.example.database.table.ChatHistoryTable
@@ -114,6 +115,22 @@ class ChatService {
           "채팅방이 존재하지 않습니다."
         )
       systemPrompt.delete()
+    }
+  }
+  
+  
+  suspend fun socket(chatRoomId: Int, message: String): String {
+    return query {
+      val user = ChatRoomEntity.findById(chatRoomId)?.user ?: throw NotFoundException("채팅방이 존재하지 않습니다.")
+      if (user.chatCount >= 5) throw ReachedLimitException()
+      user.chatCount ++
+      
+      addChatHistory(chatRoomId, message, Role.user)
+      
+      // TODO: chatGPT 연결
+      
+      
+      "저장함"
     }
   }
   
